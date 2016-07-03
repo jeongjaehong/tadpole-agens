@@ -1,5 +1,6 @@
 package com.bitnine.angens.manager.core.editors.parts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,7 +9,6 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
@@ -38,7 +38,7 @@ public class DatabaseTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getDatabaseInfo(userDB, instance);
+		return new ArrayList();// AgensManagerSQLImpl.getDatabaseInfo(userDB, instance);
 	}
 	
 	/**

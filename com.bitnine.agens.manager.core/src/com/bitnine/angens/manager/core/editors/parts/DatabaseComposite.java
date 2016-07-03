@@ -101,7 +101,7 @@ public class DatabaseComposite extends AgensThreadComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getDatabaseInfo(userDB, instance);
+		return AgensManagerSQLImpl.getDatabaseInfo(userDB, getLastSnapId());
 	}
 	
 }

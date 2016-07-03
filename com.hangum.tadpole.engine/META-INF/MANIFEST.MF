@@ -25,6 +25,7 @@ Bundle-ClassPath: libs/ibatis-2.3.4.726-patched-tadpole.jar,
 Export-Package: 
  com.bitnine.agens.manager.engine.core,
  com.bitnine.agens.manager.engine.core.dao.domain,
+ com.bitnine.agens.manager.engine.core.dao.domain.custom,
  com.hangum.tadpole.db.bander.cubrid,
  com.hangum.tadpole.db.bander.oracle,
  com.hangum.tadpole.db.metadata,

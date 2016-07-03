@@ -22,51 +22,7 @@
 			instid ASC
 	</select>
 	
-	<!--  cpu list -->
-	<select id="listCPU" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Cpu" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
-		SELECT snapid, cpu_id, cpu_user, cpu_system, cpu_idle, cpu_iowait, overflow_user, overflow_system, overflow_idle, overflow_iowait 
-		FROM statsrepo.cpu
-		WHERE  snapid = (select max(snapid) 
-		                    from statsrepo.snapshot
-		                    where instid = #instid#
-		                )
-		GROUP BY snapid, cpu_id
-	</select>
-	
-	<!--  memory list -->
-	<select id="listMemory" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Memory" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
-		SELECT snapid, memfree, buffers, cached, swap, dirty 
-		FROM statsrepo.memory
-		WHERE  snapid = (select max(snapid) 
-		                    from statsrepo.snapshot
-		                    where instid = #instid#
-		                )
-		GROUP BY snapid
-	</select>
-	
-	<!--  activity -->
-	<select id="listActivity" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Activity" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
-		SELECT snapid, idle, idle_in_xact, waiting, running, max_backends 
-		FROM statsrepo.activity
-		WHERE  snapid = (select max(snapid) 
-		                    from statsrepo.snapshot
-		                    where instid = #instid#
-		                )
-		GROUP BY snapid
-	</select>
-	
-	<!--  database -->
-	<select id="listDatabase" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Database" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
-		SELECT snapid, dbid, name, size, age, xact_commit, xact_rollback, blks_read, blks_hit, tup_returned, tup_fetched, tup_inserted, tup_updated, tup_deleted, confl_tablespace, confl_lock, confl_snapshot, confl_bufferpin, confl_deadlock, temp_files, temp_bytes, deadlocks, blk_read_time, blk_write_time  
-		FROM statsrepo.database
-		WHERE  snapid = (select max(snapid) 
-		                    from statsrepo.snapshot
-		                    where instid = #instid#
-		                )
-		GROUP BY snapid, dbid, name
-	</select>
-	
-	<!--  alert message -->
+		<!--  alert message -->
 	<select id="listAlertMessage" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.AlertMessage" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
 		SELECT snapid, message 
 		FROM statsrepo.alert_message
@@ -77,4 +33,53 @@
 		                ) -->
 	</select>
 	
+	<!--  Database Statistics -->
+	<select id="listDatabaseStatistics" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT datname AS "database", size AS "MiB", size_incr AS "+MiB", xact_commit_tps AS "commit/s", xact_rollback_tps AS "rollback/s", blks_hit_rate AS "hit%", blks_hit_tps AS "gets/s", blks_read_tps AS "reads/s", tup_fetch_tps AS "rows/s"
+		FROM statsrepo.get_dbstats(#snapid#, #snapid#)
+	</select>
+	
+	<!--   cpu list 
+	<select id="listCPU" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Cpu" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
+		SELECT snapid, cpu_id, cpu_user, cpu_system, cpu_idle, cpu_iowait, overflow_user, overflow_system, overflow_idle, overflow_iowait 
+		FROM statsrepo.cpu
+		WHERE  snapid = (select max(snapid) 
+		                    from statsrepo.snapshot
+		                    where instid = #instid#
+		                )
+		GROUP BY snapid, cpu_id
+	</select>
+	
+	 memory list
+	<select id="listMemory" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Memory" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
+		SELECT snapid, memfree, buffers, cached, swap, dirty 
+		FROM statsrepo.memory
+		WHERE  snapid = (select max(snapid) 
+		                    from statsrepo.snapshot
+		                    where instid = #instid#
+		                )
+		GROUP BY snapid
+	</select>
+	
+	 activity
+	<select id="listActivity" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Activity" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
+		SELECT snapid, idle, idle_in_xact, waiting, running, max_backends 
+		FROM statsrepo.activity
+		WHERE  snapid = (select max(snapid) 
+		                    from statsrepo.snapshot
+		                    where instid = #instid#
+		                )
+		GROUP BY snapid
+	</select>
+	
+	 DiskUsageperTableSpace
+	<select id="listDiskUsageperTableSpace" resultClass="com.bitnine.agens.manager.engine.core.dao.domain.Tablespace" parameterClass="com.bitnine.agens.manager.engine.core.dao.domain.Instance">
+		SELECT *  
+		FROM statsrepo.tablespace
+		WHERE  snapid = (select max(snapid) 
+		                    from statsrepo.snapshot
+		                    where instid = #instid#
+		                )
+		GROUP BY snapid, tbs, name
+	</select> -->
 </sqlMap>

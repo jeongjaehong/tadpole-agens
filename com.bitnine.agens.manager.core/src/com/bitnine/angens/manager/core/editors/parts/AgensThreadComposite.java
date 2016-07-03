@@ -46,6 +46,10 @@ public abstract class AgensThreadComposite extends Composite {
 		}
 	}
 	
+	protected int getLastSnapId() {
+		return 1582;
+	}
+	
 	/**
 	 * start runnable
 	 * 
