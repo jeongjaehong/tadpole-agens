@@ -1,25 +1,26 @@
-package com.bitnine.angens.manager.core.editors.parts;
+package com.bitnine.angens.manager.core.editors.parts.os;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
+import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
+import com.bitnine.angens.manager.core.editors.parts.AgensTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
 /**
- * database table composite
+ * IO time table composite
  * 
  * @author hangum
  *
  */
-public class DatabaseTableComposite extends AgensTableComposite {
-	private static final Logger logger = Logger.getLogger(DatabaseTableComposite.class);
+public class IoTimeTableComposite extends AgensTableComposite {
+	private static final Logger logger = Logger.getLogger(IoTimeTableComposite.class);
 	
 	/**
 	 * Create the composite.
@@ -28,8 +29,8 @@ public class DatabaseTableComposite extends AgensTableComposite {
 	 * @param userDB
 	 * @param instance
 	 */
-	public DatabaseTableComposite(Composite parent, UserDBDAO userDB, Instance instance, LabelProvider labelProvider) {
-		super(parent, "Database Statistics", userDB, instance, labelProvider);
+	public IoTimeTableComposite(Composite parent, UserDBDAO userDB, Instance instance, AgensMAPLabelProvider labelProvider) {
+		super(parent, "I/O Time", userDB, instance, labelProvider);
 	}
 	
 	/**
@@ -38,16 +39,16 @@ public class DatabaseTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return new ArrayList();// AgensManagerSQLImpl.getDatabaseInfo(userDB, instance);
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "io_time", getLastSnapId());
 	}
 	
 	/**
 	 * make columns
 	 */
 	public void createTableColumn() {
-		String[] columnName = {"Database", "MiB", "MiB", "commit/s", "rollback/s", "hit%", "gets/s", "reads/s", "rows/s"};
-		int[] columnSize = {100, 80, 80, 80, 80, 80, 80, 80, 80};
-		int[] align = {SWT.LEFT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT};
+		String[] columnName = {"device_name", "avg read time", "avg write time"};
+		int[] columnSize = {100, 80, 80};
+		int[] align = {SWT.LEFT, SWT.RIGHT, SWT.RIGHT};
 		
 		for(int i=0; i<columnName.length; i++) {
 			final TableViewerColumn tableColumn = new TableViewerColumn(tableView, align[i]);

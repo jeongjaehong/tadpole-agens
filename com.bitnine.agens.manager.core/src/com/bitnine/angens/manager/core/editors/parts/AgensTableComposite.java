@@ -15,10 +15,12 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Table;
 
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
+import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
+import com.bitnine.angens.manager.core.editors.parts.statistics.DatabaseStatisticsTableComposite;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
 public abstract class AgensTableComposite extends AgensThreadComposite {
-	private static final Logger logger = Logger.getLogger(DatabaseTableComposite.class);
+	private static final Logger logger = Logger.getLogger(DatabaseStatisticsTableComposite.class);
 	protected TableViewer tableView;
 	
 	/**
@@ -45,14 +47,18 @@ public abstract class AgensTableComposite extends AgensThreadComposite {
 		GridLayout gl_grpConnectionInfo = new GridLayout(1, false);
 		gl_grpConnectionInfo.verticalSpacing = 0;
 		gl_grpConnectionInfo.horizontalSpacing = 0;
-		gl_grpConnectionInfo.marginHeight = 0;
+		gl_grpConnectionInfo.marginHeight = 200;
 		gl_grpConnectionInfo.marginWidth = 0;
 		table.setLayout(gl_grpConnectionInfo);
 		
 		createTableColumn();
 		
 		tableView.setContentProvider(new ArrayContentProvider());
-		tableView.setLabelProvider(labelProvider);//new DatabaseLabelProvider());
+		tableView.setLabelProvider(labelProvider);
+		if(labelProvider instanceof AgensMAPLabelProvider) {
+			AgensMAPLabelProvider mapLabelProvider = (AgensMAPLabelProvider)labelProvider;
+			mapLabelProvider.setTable(tableView.getTable());
+		}
 		
 		try {
 			refreshUI(getUIData());

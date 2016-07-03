@@ -7,6 +7,7 @@ import org.eclipse.rap.rwt.service.ServerPushSession;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
+import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
 import com.bitnine.angens.manager.core.utils.AgensGraphDefine;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
@@ -46,8 +47,8 @@ public abstract class AgensThreadComposite extends Composite {
 		}
 	}
 	
-	protected int getLastSnapId() {
-		return 1582;
+	protected int getLastSnapId() throws Exception {
+		return AgensManagerSQLImpl.getSnapshotInfo(userDB, instance);
 	}
 	
 	/**

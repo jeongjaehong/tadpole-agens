@@ -1,4 +1,4 @@
-package com.bitnine.angens.manager.core.editors.parts;
+package com.bitnine.angens.manager.core.editors.parts.summary;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
+import com.bitnine.angens.manager.core.editors.parts.AgensTableComposite;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
 /**

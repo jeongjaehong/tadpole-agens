@@ -21,11 +21,26 @@ import org.eclipse.ui.part.EditorPart;
 
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
-import com.bitnine.angens.manager.core.editors.parts.AlertMessageComposite;
-import com.bitnine.angens.manager.core.editors.parts.DatabaseTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.SummaryComposite;
+import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.bitnine.angens.manager.core.editors.parts.lableprovider.AlertMessageLabelProvider;
-import com.bitnine.angens.manager.core.editors.parts.lableprovider.DatabaseLabelProvider;
+import com.bitnine.angens.manager.core.editors.parts.os.CPUUsageTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.os.DiskUsagePerTableSpaceTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.os.DiskUsageperTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.os.IoSizeTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.os.IoTimeTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.os.IoUsageTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.os.LoadAverageTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.os.MemoryUsageTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.DatabaseSizeTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.DatabaseStatisticsTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.InstanceProcessesRatioTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.InstanceProcessesTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.RecoveryConflictsTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.TransactionStatisticsTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.WALStatisticsStatsTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.WALStatisticsTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.summary.AlertMessageComposite;
+import com.bitnine.angens.manager.core.editors.parts.summary.SummaryComposite;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
 /**
@@ -169,20 +184,36 @@ public class AgensManagerEditor extends EditorPart {
 		tbtmStatistics.setControl(compStatistics);
 		compStatistics.setLayout(new GridLayout(1, false));
 		
-		DatabaseTableComposite databaseComposite  = new DatabaseTableComposite(compStatistics, userDB, getInstance(), new DatabaseLabelProvider());
+		DatabaseStatisticsTableComposite databaseComposite  = new DatabaseStatisticsTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
 		databaseComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-//		// recovery conflicts
-//		RecoveryConflictsTableComposite recoveryConflictsComposite = new RecoveryConflictsTableComposite(compStatistics, userDB, getInstance(), new DatabaseLabelProvider());
-//		recoveryConflictsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//		
-//		// WAL statistic table
-//		WALStatisticsTableComposite walConflictsComposite = new WALStatisticsTableComposite(compStatistics, userDB, getInstance(), new WALStatisticsTableLabelProvider());
-//		walConflictsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//		
-//		// instance process ratio
-//		InstanceProcessesRatioTableComposite instanceProcessRatioComposite = new InstanceProcessesRatioTableComposite(compStatistics, userDB, getInstance(), new InstanceProcessRatioTableLabelProvider());
-//		instanceProcessRatioComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		TransactionStatisticsTableComposite transactionComposite  = new TransactionStatisticsTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		transactionComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		DatabaseSizeTableComposite databaseSizeComposite  = new DatabaseSizeTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		databaseSizeComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		// recovery conflicts
+		RecoveryConflictsTableComposite recoveryConflictsComposite = new RecoveryConflictsTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		recoveryConflictsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		// instance activity
+		
+		// WAL statistic table
+		WALStatisticsTableComposite walConflictsComposite = new WALStatisticsTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		walConflictsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		// WAL statistic table
+		WALStatisticsStatsTableComposite walStatsComposite = new WALStatisticsStatsTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		walStatsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		// instance process ratio
+		InstanceProcessesRatioTableComposite instanceProcessRatioComposite = new InstanceProcessesRatioTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		instanceProcessRatioComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		// instance process 
+		InstanceProcessesTableComposite instanceProcessComposite = new InstanceProcessesTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		instanceProcessComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 	}
 	
 	/**
@@ -192,18 +223,33 @@ public class AgensManagerEditor extends EditorPart {
 		CTabItem tbtmStatistics = new CTabItem(tabFolderMainResult, SWT.NONE);
 		tbtmStatistics.setText("OS");
 		
-//		Composite compStatistics = new Composite(tabFolderMainResult, SWT.NONE);
-//		tbtmStatistics.setControl(compStatistics);
-//		compStatistics.setLayout(new GridLayout(1, false));
-//		
-//		IOUsageTableComposite ioUsageTableComposite  = new IOUsageTableComposite(compStatistics, userDB, getInstance(), new DatabaseLabelProvider());
-//		ioUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//		
-//		DiskUsageperTableSpaceTableComposite diskUseageperTablespaceTableComposite  = new DiskUsageperTableSpaceTableComposite(compStatistics, userDB, getInstance(), new DiskUsageperTableSpaceTableLabelProvider());
-//		diskUseageperTablespaceTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//		
-//		DiskUsageperTableComposite diskUseageperTableComposite  = new DiskUsageperTableComposite(compStatistics, userDB, getInstance(), new DiskUsageperTableLabelProvider());
-//		diskUseageperTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		Composite compStatistics = new Composite(tabFolderMainResult, SWT.NONE);
+		tbtmStatistics.setControl(compStatistics);
+		compStatistics.setLayout(new GridLayout(1, false));
+		
+		CPUUsageTableComposite cpuUsageTableComposite  = new CPUUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		cpuUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		LoadAverageTableComposite loadAverageTableComposite  = new LoadAverageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		loadAverageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		IoUsageTableComposite ioUsageTableComposite  = new IoUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		ioUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		IoSizeTableComposite ioSizeTableComposite  = new IoSizeTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		ioSizeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		IoTimeTableComposite ioTimeTableComposite  = new IoTimeTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		ioTimeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
+		MemoryUsageTableComposite memoryTableComposite  = new MemoryUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		memoryTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		DiskUsagePerTableSpaceTableComposite diskUseageperTablespaceTableComposite  = new DiskUsagePerTableSpaceTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		diskUseageperTablespaceTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		DiskUsageperTableComposite diskUseageperTableComposite  = new DiskUsageperTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		diskUseageperTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 	 }
 
 	@Override

@@ -1,4 +1,4 @@
-package com.bitnine.angens.manager.core.editors.parts;
+package com.bitnine.angens.manager.core.editors.parts.summary;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
