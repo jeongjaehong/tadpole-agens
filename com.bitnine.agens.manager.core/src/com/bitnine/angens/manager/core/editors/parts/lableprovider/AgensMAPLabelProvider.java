@@ -29,7 +29,6 @@ public class AgensMAPLabelProvider extends LabelProvider implements ITableLabelP
 		
 		String title = table.getColumn(columnIndex).getText();
 		String value = ""+map.get(title);
-//		System.out.println("[columnIndex]" + columnIndex + "[value]" + value);
 		
 		return value;
 	}

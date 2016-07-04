@@ -145,49 +145,61 @@
 	<select id="heavily_updated_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 		SELECT datname AS "database", nspname AS "schema", relname AS "table", n_tup_ins AS "INSERT", n_tup_upd AS "UPDATE", n_tup_del AS "DELETE", n_tup_total AS total, hot_upd_rate AS "HOT (%)" 
 		FROM statsrepo.get_heavily_updated_tables(#snapid#, #snapid#)
+		LIMIT 5
 	</select>
 	
 	<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
 		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+		LIMIT 5
 	</select>
 
 	<select id="low_density_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", n_live_tup AS tuples, logical_pages, physical_pages, tratio FROM statsrepo.get_low_density_tables(#snapid#, #snapid#) ORDER BY tratio
+		SELECT datname AS "database", nspname AS "schema", relname AS "table", n_live_tup AS tuples, logical_pages, physical_pages, tratio 
+		FROM statsrepo.get_low_density_tables(#snapid#, #snapid#) ORDER BY tratio
+		LIMIT 5
 	</select>
 
 	<select id="fragmented_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", attname AS "column", correlation FROM statsrepo.get_flagmented_tables(#snapid#, #snapid#)
+		SELECT datname AS "database", nspname AS "schema", relname AS "table", attname AS "column", correlation 
+		FROM statsrepo.get_flagmented_tables(#snapid#, #snapid#)
+		LIMIT 5
 	</select>
 
 	<!-- Query Acitvity -->
 	<select id="functions" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", proname AS "function", calls, total_time AS "total time (ms)", self_time AS "self time (ms)", time_per_call AS "time/call (ms)" FROM statsrepo.get_query_activity_functions(#snapid#, #snapid#)
+		SELECT datname AS "database", nspname AS "schema", proname AS "function", calls, total_time AS "total time (ms)", self_time AS "self time (ms)", time_per_call AS "time/call (ms)" 
+		FROM statsrepo.get_query_activity_functions(#snapid#, #snapid#)
 	</select>
 
 	<select id="statements" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT rolname AS "user", datname AS "database", query, calls, total_time AS "total time (sec)", time_per_call AS "time/call (sec)" FROM statsrepo.get_query_activity_statements(#snapid#, #snapid#)
+		SELECT rolname AS "user", datname AS "database", query, calls, total_time AS "total time (sec)", time_per_call AS "time/call (sec)" 
+		FROM statsrepo.get_query_activity_statements(#snapid#, #snapid#)
 	</select>
 
 	<!-- Long Transaction -->
 	<select id="long_transactions" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT pid, client AS "client address", start AS "when to start", duration AS "duration (sec)", query FROM statsrepo.get_long_transactions(#snapid#, #snapid#)
+		SELECT pid, client AS "client address", start AS "when to start", duration AS "duration (sec)", query 
+		FROM statsrepo.get_long_transactions(#snapid#, #snapid#)
 	</select>
 
 	<!-- Lock Conflicts -->
 	<select id="lock_conflicts" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "relation", duration, blockee_pid AS "blockee pid", blocker_pid AS "blocker pid", blocker_gid AS "blocker gid", blockee_query AS "blockee query", blocker_query AS "blocker query" FROM statsrepo.get_lock_activity(#snapid#, #snapid#)
+		SELECT datname AS "database", nspname AS "schema", relname AS "relation", duration, blockee_pid AS "blockee pid", blocker_pid AS "blocker pid", blocker_gid AS "blocker gid", blockee_query AS "blockee query", blocker_query AS "blocker query" 
+		FROM statsrepo.get_lock_activity(#snapid#, #snapid#)
 	</select>
 
 	<!-- Activities -->
   	<!-- Checkpoint Activity -->
 	<select id="checkpoint_activity" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT ckpt_total AS "total checkpoints", ckpt_time AS "checkpoints by time", ckpt_xlog AS "checkpoints by xlog", avg_write_buff AS "avg written buffers", max_write_buff AS "max written buffers", avg_duration AS "avg duration (sec)", max_duration AS "max duration (sec)" FROM statsrepo.get_checkpoint_activity(#snapid#, #snapid#)
+		SELECT ckpt_total AS "total checkpoints", ckpt_time AS "checkpoints by time", ckpt_xlog AS "checkpoints by xlog", avg_write_buff AS "avg written buffers", max_write_buff AS "max written buffers", avg_duration AS "avg duration (sec)", max_duration AS "max duration (sec)" 
+		FROM statsrepo.get_checkpoint_activity(#snapid#, #snapid#)
 	</select>
 
 <!-- Autovacuum Activity -->
 	<select id="basic_statistics25" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", "count", avg_index_scans AS "avg index scans", avg_tup_removed AS "avg removed rows", avg_tup_remain AS "avg remain rows", avg_duration AS "avg duration (sec)", max_duration AS "max duration (sec)" FROM statsrepo.get_autovacuum_activity(#snapid#, #snapid#)
+		SELECT datname AS "database", nspname AS "schema", relname AS "table", "count", avg_index_scans AS "avg index scans", avg_tup_removed AS "avg removed rows", avg_tup_remain AS "avg remain rows", avg_duration AS "avg duration (sec)", max_duration AS "max duration (sec)" 
+		FROM statsrepo.get_autovacuum_activity(#snapid#, #snapid#)
 	</select>
 
 	<select id="basic_statistics30" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
@@ -196,16 +208,22 @@
 
 	<select id="vacuum_cancels" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 	<![CDATA[
-		SELECT timestamp::timestamp(0) AS "timestamp", database, schema, "table", query AS "cause query" FROM statsrepo.autovacuum_cancel WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By timestamp
+		SELECT timestamp::timestamp(0) AS "timestamp", database, schema, "table", query AS "cause query" 
+		FROM statsrepo.autovacuum_cancel WHERE timestamp BETWEEN 
+			(SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= #snapid#) AND 
+			(SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= #snapid#) AND instid = 
+			(SELECT instid FROM statsrepo.snapshot WHERE snapid = #snapid#) ORDER By timestamp
 		]]>
 	</select>
 
 	<select id="io_statistics" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", avg_page_hit AS "avg page hit", avg_page_miss AS "avg page miss", avg_page_dirty AS "avg page dirty", avg_read_rate AS "avg read rate", avg_write_rate AS "avg write rate" FROM statsrepo.get_autovacuum_activity2(#snapid#, #snapid#)
+		SELECT datname AS "database", nspname AS "schema", relname AS "table", avg_page_hit AS "avg page hit", avg_page_miss AS "avg page miss", avg_page_dirty AS "avg page dirty", avg_read_rate AS "avg read rate", avg_write_rate AS "avg write rate" 
+		FROM statsrepo.get_autovacuum_activity2(#snapid#, #snapid#)
 	</select>
 
 	<select id="analyze_statistics25" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", "count", total_duration AS "total duration (sec)", avg_duration AS "avg duration (sec)", max_duration AS "max duration (sec)" FROM statsrepo.get_autoanalyze_stats(#snapid#, #snapid#)
+		SELECT datname AS "database", nspname AS "schema", relname AS "table", "count", total_duration AS "total duration (sec)", avg_duration AS "avg duration (sec)", max_duration AS "max duration (sec)" 
+		FROM statsrepo.get_autoanalyze_stats(#snapid#, #snapid#)
 	</select>
 
 	<select id="analyze_statistics30" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
@@ -214,12 +232,14 @@
 
 	<!-- Replication Activity -->
 	<select id="current_replication_status" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT usename AS "user", application_name AS "appname", client_addr AS "client addr", client_hostname AS "client_host", client_port, backend_start AS "backend start", state, current_location AS "current location", sent_location AS "sent location", write_location AS "write location", flush_location AS "flush location", replay_location AS "replay location", sync_priority AS "sync priority", sync_state AS "sync state" FROM statsrepo.get_replication_activity(#snapid#, #snapid#)
+		SELECT usename AS "user", application_name AS "appname", client_addr AS "client addr", client_hostname AS "client_host", client_port, backend_start AS "backend start", state, current_location AS "current location", sent_location AS "sent location", write_location AS "write location", flush_location AS "flush location", replay_location AS "replay location", sync_priority AS "sync priority", sync_state AS "sync state"
+		FROM statsrepo.get_replication_activity(#snapid#, #snapid#)
 	</select>
 
 	<!-- Replication Delays -->
 	<select id="replication_delays" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT replace("timestamp", '-', '/'), client , flush_delay_size , replay_delay_size FROM statsrepo.get_replication_delays(#snapid#, #snapid#)
+		SELECT replace("timestamp", '-', '/'), client , flush_delay_size , replay_delay_size 
+		FROM statsrepo.get_replication_delays(#snapid#, #snapid#)
 	</select>
 
 	<select id="replication_delays_get_sync_host" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
@@ -229,84 +249,56 @@
 	<!-- /* Information */ -->
   	<!-- // Schema Information -->
 	<select id="table25" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-	SELECT datname AS "database", nspname AS "schema", relname AS "table", attnum AS columns, size AS "MiB", size_incr AS "+MiB", seq_scan AS "table scans", idx_scan AS "index scans" FROM statsrepo.get_schema_info_tables(#snapid#, #snapid#)
+	SELECT datname AS "database", nspname AS "schema", relname AS "table", attnum AS columns, size AS "MiB", size_incr AS "+MiB", seq_scan AS "table scans", idx_scan AS "index scans" 
+	FROM statsrepo.get_schema_info_tables(#snapid#, #snapid#)
 	</select>
-<!-- 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
-	</select>
-  "table30" =>
-  "SELECT datname AS "database", nspname AS "schema", relname AS "table", attnum AS columns, tuples AS "rows", size AS "MiB", size_incr AS "+MiB", seq_scan AS "table scans", idx_scan AS "index scans" FROM statsrepo.get_schema_info_tables(#snapid#, #snapid#)",
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<select id="table30" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT datname AS "database", nspname AS "schema", relname AS "table", attnum AS columns, tuples AS "rows", size AS "MiB", size_incr AS "+MiB", seq_scan AS "table scans", idx_scan AS "index scans" FROM statsrepo.get_schema_info_tables(#snapid#, #snapid#)
 	</select>
-  "index" =>
-  "SELECT datname AS "database", schemaname AS "schema", indexname AS "index", tablename AS "table", size AS "MiB", size_incr AS "+MiB", scans, rows_per_scan AS "rows/scan", blks_read AS reads, blks_hit AS hits, keys FROM statsrepo.get_schema_info_indexes(#snapid#, #snapid#)",
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<select id="index" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT datname AS "database", schemaname AS "schema", indexname AS "index", tablename AS "table", size AS "MiB", size_incr AS "+MiB", scans, rows_per_scan AS "rows/scan", blks_read AS reads, blks_hit AS hits, keys 
+		FROM statsrepo.get_schema_info_indexes(#snapid#, #snapid#)
 	</select>
-  // Setting Parameters
-  "parameter" =>
-  "SELECT name, setting, source FROM statsrepo.get_setting_parameters(#snapid#, #snapid#)",
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<!-- Setting Parameters -->
+	<select id="parameter" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT name, setting, source FROM statsrepo.get_setting_parameters(#snapid#, #snapid#)
 	</select>
-  // Setting Parameters
-  "parameter2" =>
-  "SELECT name, setting, unit, source FROM statsrepo.get_setting_parameters(#snapid#, #snapid#)",
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<!-- Setting Parameters -->
+	<select id="parameter2" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT name, setting, unit, source FROM statsrepo.get_setting_parameters(#snapid#, #snapid#)
 	</select>
-  // Alert
-  "alert" =>
-  "SELECT "timestamp", message FROM statsrepo.get_alert(#snapid#, #snapid#)",
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<!-- Alert -->
+	<select id="alert" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT "timestamp", message FROM statsrepo.get_alert(#snapid#, #snapid#)
 	</select>
-  // Profiles
-  "profiles" =>
-  "SELECT processing, executes FROM statsrepo.get_profiles(#snapid#, #snapid#)",
+  
+ 	<!-- Profiles -->
+	<select id="profiles" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT processing, executes FROM statsrepo.get_profiles(#snapid#, #snapid#)
+	</select>
+  
+  	<!-- Snapshot List -->
+	<select id="snapshotlist" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT s.snapid AS SnapID, i.instid AS instID, i.hostname AS Host, i.port AS Port, s.time::timestamp(0) AS Timestamp , s.comment AS Comment FROM statsrepo.snapshot s LEFT JOIN statsrepo.instance i ON s.instid = i.instid
+	</select>
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<!-- Snapshot Size -->
+	<select id="snapshotsize" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT i.instid, i.name, i.hostname, i.port, count(s.snapid), sum(s.snapshot_increase_size)::numeric(1000), max(s.snapid), max(s.time)::timestamp(0) FROM statsrepo.instance i LEFT JOIN statsrepo.snapshot s ON i.instid = s.instid GROUP BY i.instid, i.name, i.hostname, i.port ORDER BY i.instid
 	</select>
-  // Snapshot List
-  "snapshotlist" =>
-  "SELECT s.snapid AS SnapID, i.instid AS instID, i.hostname AS Host, i.port AS Port, s.time::timestamp(0) AS Timestamp , s.comment AS Comment FROM statsrepo.snapshot s LEFT JOIN statsrepo.instance i ON s.instid = i.instid",
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<!-- Log Viewer -->
+	<select id="log_size" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT count(*) FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3
 	</select>
-  // Snapshot Size
-  "snapshotsize" =>
-  "SELECT i.instid, i.name, i.hostname, i.port, count(s.snapid), sum(s.snapshot_increase_size)::numeric(1000), max(s.snapid), max(s.time)::timestamp(0) FROM statsrepo.instance i LEFT JOIN statsrepo.snapshot s ON i.instid = s.instid GROUP BY i.instid, i.name, i.hostname, i.port ORDER BY i.instid",
 
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
+	<select id="log" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+		SELECT to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS.MS') AS timestamp, username, database, pid, client_addr, session_id, session_line_num, ps_display, to_char(session_start, 'YYYY-MM-DD HH24:MI:SS.MS') AS session_start, vxid, xid, elevel, sqlstate, message, detail, hint, query, query_pos, context, user_query, user_query_pos, location, application_name FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3
 	</select>
-  /* Log Viewer */
-  "log_size" =>
-  "SELECT count(*) FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3",
-
-<select id="heavily_accessed_tables" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-		SELECT datname AS "database", nspname AS "schema", relname AS "table", seq_scan, seq_tup_read, tup_per_seq, blks_hit_rate AS "hit (%)" 
-		FROM statsrepo.get_heavily_accessed_tables(#snapid#, #snapid#)
-	</select>
-  "log" =>
-  "SELECT to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS.MS') AS timestamp, username, database, pid, client_addr, session_id, session_line_num, ps_display, to_char(session_start, 'YYYY-MM-DD HH24:MI:SS.MS') AS session_start, vxid, xid, elevel, sqlstate, message, detail, hint, query, query_pos, context, user_query, user_query_pos, location, application_name FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3"
-	 -->
+	 
 </sqlMap>
