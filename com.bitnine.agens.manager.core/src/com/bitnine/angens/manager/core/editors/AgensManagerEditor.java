@@ -33,14 +33,8 @@ import com.bitnine.angens.manager.core.editors.parts.information.ParametersCompo
 import com.bitnine.angens.manager.core.editors.parts.information.TableComposite;
 import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.bitnine.angens.manager.core.editors.parts.lableprovider.AlertMessageLabelProvider;
-import com.bitnine.angens.manager.core.editors.parts.os.CPUUsageTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.DiskUsagePerTableSpaceTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.DiskUsageperTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.os.IoSizeTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.os.IoTimeTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.IoUsageTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.LoadAverageTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.MemoryUsageTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.sql.FragmentedTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.sql.FunctionsComposite;
 import com.bitnine.angens.manager.core.editors.parts.sql.HeavilyAccessedTableComposite;
@@ -53,6 +47,7 @@ import com.bitnine.angens.manager.core.editors.parts.statistics.DatabaseSizeTabl
 import com.bitnine.angens.manager.core.editors.parts.statistics.DatabaseStatisticsTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.InstanceProcessesRatioTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.InstanceProcessesTableComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.LineTransactionComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.RecoveryConflictsTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.TransactionStatisticsTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.WALStatisticsStatsTableComposite;
@@ -217,9 +212,8 @@ public class AgensManagerEditor extends EditorPart {
 		// recovery conflicts
 		RecoveryConflictsTableComposite recoveryConflictsComposite = new RecoveryConflictsTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
 		recoveryConflictsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		
+//		
 		// instance activity
-		
 		// WAL statistic table
 		WALStatisticsTableComposite walConflictsComposite = new WALStatisticsTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
 		walConflictsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -248,14 +242,14 @@ public class AgensManagerEditor extends EditorPart {
 		tbtmStatistics.setControl(compStatistics);
 		compStatistics.setLayout(new GridLayout(1, false));
 		
-		CPUUsageTableComposite cpuUsageTableComposite  = new CPUUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		cpuUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		
-		LoadAverageTableComposite loadAverageTableComposite  = new LoadAverageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		loadAverageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		
-		IoUsageTableComposite ioUsageTableComposite  = new IoUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		ioUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		CPUUsageTableComposite cpuUsageTableComposite  = new CPUUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		cpuUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		
+//		LoadAverageTableComposite loadAverageTableComposite  = new LoadAverageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		loadAverageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		
+//		IoUsageTableComposite ioUsageTableComposite  = new IoUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		ioUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 		IoSizeTableComposite ioSizeTableComposite  = new IoSizeTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
 		ioSizeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -263,14 +257,15 @@ public class AgensManagerEditor extends EditorPart {
 		IoTimeTableComposite ioTimeTableComposite  = new IoTimeTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
 		ioTimeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-		MemoryUsageTableComposite memoryTableComposite  = new MemoryUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		MemoryUsageTableComposite memoryTableComposite  = new MemoryUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		LineTransactionComposite memoryTableComposite = new LineTransactionComposite(compStatistics, userDB, getInstance());
 		memoryTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-
-		DiskUsagePerTableSpaceTableComposite diskUseageperTablespaceTableComposite  = new DiskUsagePerTableSpaceTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		diskUseageperTablespaceTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-
-		DiskUsageperTableComposite diskUseageperTableComposite  = new DiskUsageperTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		diskUseageperTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//
+//		DiskUsagePerTableSpaceTableComposite diskUseageperTablespaceTableComposite  = new DiskUsagePerTableSpaceTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		diskUseageperTablespaceTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//
+//		DiskUsageperTableComposite diskUseageperTableComposite  = new DiskUsageperTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		diskUseageperTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 	 }
 	
 	/**
