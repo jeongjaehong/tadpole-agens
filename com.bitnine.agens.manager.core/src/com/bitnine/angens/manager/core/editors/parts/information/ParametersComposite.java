@@ -47,7 +47,7 @@ public class ParametersComposite extends AgensTableComposite {
 	 */
 	public void createTableColumn() {
 		String[] columnName = {"name", "setting", "source"};
-		int[] columnSize = {100, 100, 100};
+		int[] columnSize = {200, 200, 200};
 		int[] align = {SWT.LEFT, SWT.LEFT, SWT.LEFT};
 		
 		for(int i=0; i<columnName.length; i++) {
