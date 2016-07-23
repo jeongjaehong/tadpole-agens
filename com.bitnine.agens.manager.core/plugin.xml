@@ -6,6 +6,7 @@
       <editor
             class="com.bitnine.angens.manager.core.editors.AgensManagerEditor"
             default="false"
+            icon="resources/icons/agens_icons.png"
             id="com.bitnine.angens.manager.core.editor.main"
             name="Agens Manager">
       </editor>

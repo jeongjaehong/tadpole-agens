@@ -73,13 +73,18 @@ public class AgensManagerEditor extends EditorPart {
 	public static final String ID = "com.bitnine.angens.manager.core.editor.main";
 
 	/** 모니터링이 가능한지 유무 */
-	private boolean isMonitoringStart = false;
+	protected boolean isMonitoringStart = false;
+	/** 모니터링 대상 DB */
 	private UserDBDAO userDB;
 
+	/** 모니터링 인스턴스 combo */
 	private Combo comboInstance;
-	// private Group grpDashboard;
+	/** 디테일 오브젝트를 보여줄 composite */
 	private CTabFolder tabFolderMainResult;
 
+	/**
+	 * 
+	 */
 	public AgensManagerEditor() {
 		super();
 	}
@@ -112,12 +117,12 @@ public class AgensManagerEditor extends EditorPart {
 			tabFolderMainResult = new CTabFolder(grpDashboard, SWT.NONE);
 			tabFolderMainResult.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
-			createSummary();
-			createStatistics();
+//			createSummary();
+//			createStatistics();
 			createOS();
-			createSQL();
-			createActivities();
-			createInformation();
+//			createSQL();
+//			createActivities();
+//			createInformation();
 
 			tabFolderMainResult.setSelection(0);
 		}
@@ -276,7 +281,7 @@ public class AgensManagerEditor extends EditorPart {
 	}
 
 	/**
-	 * create statistics
+	 * create OS
 	 */
 	private void createOS() {
 		CTabItem tbtmStatistics = new CTabItem(tabFolderMainResult, SWT.NONE);
@@ -310,8 +315,7 @@ public class AgensManagerEditor extends EditorPart {
 		ioTimeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
 		// MemoryUsageTableComposite memoryTableComposite = new MemoryUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		LineTransactionComposite memoryTableComposite = new LineTransactionComposite(sashStatistics, userDB,
-				getInstance());
+		LineTransactionComposite memoryTableComposite = new LineTransactionComposite(sashStatistics, userDB, getInstance());
 		memoryTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		//
 		// DiskUsagePerTableSpaceTableComposite diskUseageperTablespaceTableComposite = new DiskUsagePerTableSpaceTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
@@ -488,7 +492,7 @@ public class AgensManagerEditor extends EditorPart {
 
 		setSite(site);
 		setInput(input);
-		setPartName("Agens manager");
+//		setPartName("Agens manager");
 	}
 
 	@Override

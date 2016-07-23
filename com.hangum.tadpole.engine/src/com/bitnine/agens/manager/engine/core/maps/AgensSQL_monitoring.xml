@@ -92,26 +92,31 @@
 		FROM statsrepo.get_cpu_usage_tendency_report(#snapid#, #snapid#) GROUP BY 1 ORDER BY 1
 	</select>
 	
+	<!-- load average -->
 	<select id="load_average" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 		SELECT replace("timestamp", '-', '/'), avg("1min") AS "1min", avg("5min") AS "5min", avg("15min") AS "15min" 
 		FROM statsrepo.get_loadavg_tendency(#snapid#, #snapid#) GROUP BY 1 ORDER BY 1
 	</select>
 	
+	<!--  io usage -->
 	<select id="io_usage" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 		SELECT device_name, device_tblspaces AS "including TableSpaces", total_read AS "total read (MiB)", total_write AS "total write (MiB)", total_read_time AS "total read time (ms)", total_write_time AS "total write time (ms)", io_queue AS "current I/O queue", total_io_time AS "total I/O time (ms)" 
 		FROM statsrepo.get_io_usage(#snapid#, #snapid#)
 	</select>
 	
+	<!--  io size -->
 	<select id="io_size" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 		SELECT replace("timestamp", '-', '/'), device_name, avg(read_size_tps*1024) AS read, avg(write_size_tps*1024) AS write 
 		FROM statsrepo.get_io_usage_tendency_report(#snapid#, #snapid#) GROUP BY 1,2 ORDER BY 1,2
 	</select>
 
+	<!--  io time -->
 	<select id="io_time" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 		SELECT replace("timestamp", '-', '/'), device_name, avg(read_time_rate)/1000 AS "avg read time", avg(write_time_rate)/1000 AS "avg write time" 
 		FROM statsrepo.get_io_usage_tendency_report(#snapid#, #snapid#) GROUP BY 1,2 ORDER BY 1,2
 	</select>
 
+	<!--  memory usage -->
 	<select id="memory_usage" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
 		SELECT replace("timestamp", '-', '/'), avg(memfree*1024*1024) AS memfree, avg(buffers*1024*1024) AS buffers, avg(cached*1024*1024) AS cached, avg(swap*1024*1024) AS swap, avg(dirty*1024*1024) AS dirty 
 		FROM statsrepo.get_memory_tendency(#snapid#, #snapid#) GROUP BY 1 ORDER BY 1

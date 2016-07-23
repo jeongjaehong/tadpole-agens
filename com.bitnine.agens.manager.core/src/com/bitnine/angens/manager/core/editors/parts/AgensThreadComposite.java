@@ -33,6 +33,11 @@ public abstract class AgensThreadComposite extends Composite {
 		
 		this.userDB = userDB;
 		this.instance = instance;
+		
+		// create default composite
+		
+		// start monitoring
+		startInstanceMon();
 	}
 
 	/**
@@ -47,6 +52,12 @@ public abstract class AgensThreadComposite extends Composite {
 		}
 	}
 	
+	/**
+	 * get last snap id
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	protected int getLastSnapId() throws Exception {
 		return AgensManagerSQLImpl.getSnapshotInfo(userDB, instance);
 	}
@@ -90,6 +101,14 @@ public abstract class AgensThreadComposite extends Composite {
 	 */
 	public Instance getInstance() {
 		return instance;
+	}
+	
+	/**
+	 * get userDB
+	 * @return
+	 */
+	public UserDBDAO getUserDB() {
+		return userDB;
 	}
 	
 	@Override

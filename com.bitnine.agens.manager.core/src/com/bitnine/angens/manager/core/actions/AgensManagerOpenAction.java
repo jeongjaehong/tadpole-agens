@@ -22,6 +22,7 @@ import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 import com.hangum.tadpole.engine.query.dao.system.UserDBResourceDAO;
 import com.hangum.tadpole.engine.query.dao.system.userdb.ResourcesDAO;
 import com.hangum.tadpole.engine.security.TadpoleSecurityManager;
+import com.swtdesigner.ResourceManager;
 
 /**
  * open agens manager open
@@ -40,9 +41,8 @@ public class AgensManagerOpenAction extends Action implements ISelectionListener
 		this.window = window;
 		
 		setId(ID);
-		setText("Agens Manager");
 		setToolTipText("Agens Manager");
-//		setImageDescriptor( ResourceManager.getPluginImageDescriptor(Activator.PLUGIN_ID, "resources/icons/sql-query.png"));
+		setImageDescriptor( ResourceManager.getPluginImageDescriptor(Activator.PLUGIN_ID, "resources/icons/agens_icons.png"));
 		setEnabled(false);
 		
 		window.getSelectionService().addPostSelectionListener(this);

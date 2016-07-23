@@ -12,14 +12,15 @@ import org.eclipse.rap.addons.chart.basic.LineChart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Listener;
 
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
+import com.bitnine.angens.manager.core.editors.parts.AgensChartComposite;
 import com.hangum.tadpole.commons.util.ColorsSWTUtils;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
@@ -29,10 +30,11 @@ import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
  * @author hangum
  *
  */
-public class LineTransactionComposite extends Composite {
+public class LineTransactionComposite extends AgensChartComposite {
 	private static final Logger logger = Logger.getLogger(LineTransactionComposite.class);
-	protected UserDBDAO userDB;
-	protected Instance instance;
+	/** data group */
+	private List<Object> listDataGroup = new ArrayList<Object>();
+	/** define line chart */
 	protected LineChart lineChart;
 
 	/**
@@ -42,11 +44,8 @@ public class LineTransactionComposite extends Composite {
 	 * @param style
 	 */
 	public LineTransactionComposite(Composite parent, UserDBDAO userDB, Instance instance) {
-		super(parent, SWT.NONE);
+		super(parent, userDB, instance);
 		setLayout(new GridLayout(1, false));
-
-		this.userDB = userDB;
-		this.instance = instance;
 
 		Group grpTransactionStatistics = new Group(this, SWT.NONE);
 		grpTransactionStatistics.setLayout(new GridLayout(1, false));
@@ -69,97 +68,76 @@ public class LineTransactionComposite extends Composite {
 		lineChart.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				System.out.println("Selected line item #" + event.index + ", point #" + event.detail);
+				if(logger.isDebugEnabled()) logger.debug("Selected line item #" + event.index + ", point #" + event.detail);
 			}
 		});
 
-		Button button = new Button(grpTransactionStatistics, SWT.PUSH);
-		button.setText("Change data");
-		button.addListener(SWT.Selection, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				updateLine();
-			}
-		});
-
+		initializeUIData();
 	}
-
-	private void updateLine() {
+	
+	/**
+	 * initialize ui data
+	 */
+	private void initializeUIData() {
+		
+	}
+	
+	/**
+	 * refresh UI
+	 * @param listCPU
+	 */
+	public void refreshUI(final List<?> listData) {
+	
 		try {
-			lineChart.setItems(getUIData());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			final Display display = lineChart.getDisplay();
+		    display.asyncExec( new Runnable() {
+		    	public void run() {
+		    		listData.get(0);
+		   			lineChart.setItems(listData.toArray(new DataGroup[listData.size()]));
+		    	}
+		    } );
+			
+		} catch(Exception e) {
+			logger.error("initialize data", e);
 		}
 	}
 
-	// private static DataGroup[] createItems() {
-	// return new DataGroup[] { new DataGroup(createRandomPoints(), "Series 1",
-	// ColorsSWTUtils.CAT10_COLORS[0]),
-	// new DataGroup(createRandomPoints(), "Series 2",
-	// ColorsSWTUtils.CAT10_COLORS[1]) };
-	// }
-	//
-	// private static DataItem[] createRandomPoints() {
-	// DataItem[] values = new DataItem[100];
-	// for (int i = 0; i < values.length; i++) {
-	// values[i] = new DataItem(Math.random() * 100);
-	// }
-	// return values;
-	// }
-
 	/**
-	 * get cpu data
-	 * 
-	 * String[] columnName = {"timestamp", "datname", "commit_tps",
-	 * "rollback_tps"};
+	 * get chart data
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public DataGroup[] getUIData() throws Exception {
-		List<Map> listLine = AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "memory_usage", getLastSnapId());
-		logger.debug("===### data size is : " + listLine.size());
-		if (listLine.isEmpty())
-			return new DataGroup[] {};
+	public List<?> getUIData() throws Exception {
+		List<Map> listLine = AgensManagerSQLImpl.getSQLMapQueryInfo(getUserDB(), "memory_usage", getLastSnapId());
+		if(logger.isDebugEnabled()) logger.debug("===### data size is : " + listLine.size());
+		if (listLine.isEmpty()) return new ArrayList<>();
 
 		// "memfree", "buffers", "cached", "swap", "dirty"
 		Map mapData = listLine.get(0);
-
-		List<DataGroup> listDataGroup = new ArrayList<DataGroup>();
-		// for (Map map : listLine) {
+		
+		String strTitle = ""+mapData.get("replace");
+		
+		List<String> listTitle = new ArrayList<>();
+		listTitle.add(strTitle);
+		listDataGroup.add(listTitle);
+		
 		BigDecimal commit_tps = (BigDecimal) mapData.get("memfree");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(commit_tps.doubleValue()) }, "commit_tps",
-				ColorsSWTUtils.CAT10_COLORS[0]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(commit_tps.doubleValue()) }, "commit_tps", ColorsSWTUtils.CAT10_COLORS[0]));
 
 		BigDecimal rollback_tps = (BigDecimal) mapData.get("buffers");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(rollback_tps.doubleValue()) }, "rollback_tps",
-				ColorsSWTUtils.CAT10_COLORS[1]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(rollback_tps.doubleValue()) }, "rollback_tps", ColorsSWTUtils.CAT10_COLORS[1]));
 
 		BigDecimal cached = (BigDecimal) mapData.get("cached");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(cached.doubleValue()) }, "cached",
-				ColorsSWTUtils.CAT10_COLORS[2]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(cached.doubleValue()) }, "cached", ColorsSWTUtils.CAT10_COLORS[2]));
 
 		BigDecimal swap = (BigDecimal) mapData.get("swap");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(swap.doubleValue()) }, "swap",
-				ColorsSWTUtils.CAT10_COLORS[3]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(swap.doubleValue()) }, "swap", ColorsSWTUtils.CAT10_COLORS[3]));
 
 		BigDecimal dirty = (BigDecimal) mapData.get("dirty");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(dirty.doubleValue()) }, "dirty",
-				ColorsSWTUtils.CAT10_COLORS[4]));
-
-		// }
-
-		return listDataGroup.toArray(new DataGroup[listDataGroup.size()]);
-	}
-
-	protected int getLastSnapId() throws Exception {
-		return AgensManagerSQLImpl.getSnapshotInfo(userDB, instance);
-	}
-
-	@Override
-	protected void checkSubclass() {
-		// Disable the check that prevents subclassing of SWT components
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(dirty.doubleValue()) }, "dirty", ColorsSWTUtils.CAT10_COLORS[4]));
+		
+		return listDataGroup;
 	}
 
 }
