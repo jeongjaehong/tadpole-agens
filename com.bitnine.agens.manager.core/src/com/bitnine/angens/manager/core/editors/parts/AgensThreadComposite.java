@@ -93,7 +93,7 @@ public abstract class AgensThreadComposite extends Composite {
 	}
 	
 	public abstract List<?> getUIData() throws Exception;
-	public abstract void refreshUI(List<?> list);
+	public abstract void refreshUI(List<?> listData);
 
 	/**
 	 * get instance

@@ -61,10 +61,10 @@ public class LineTransactionComposite extends AgensChartComposite {
 		lineChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		lineChart.setXAxisLabel("Timestamp");
-		lineChart.setXAxisFormat("t");
+//		lineChart.setXAxisFormat("t");
 
 		lineChart.setYAxisLabel("Size (Bytes)");
-		lineChart.setYAxisFormat("100f");
+		lineChart.setYAxisFormat("d");
 		lineChart.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -92,7 +92,7 @@ public class LineTransactionComposite extends AgensChartComposite {
 			final Display display = lineChart.getDisplay();
 		    display.asyncExec( new Runnable() {
 		    	public void run() {
-		    		listData.get(0);
+//		    		listData.get(0);
 		   			lineChart.setItems(listData.toArray(new DataGroup[listData.size()]));
 		    	}
 		    } );
@@ -115,27 +115,30 @@ public class LineTransactionComposite extends AgensChartComposite {
 
 		// "memfree", "buffers", "cached", "swap", "dirty"
 		Map mapData = listLine.get(0);
-		
-		String strTitle = ""+mapData.get("replace");
-		
-		List<String> listTitle = new ArrayList<>();
-		listTitle.add(strTitle);
-		listDataGroup.add(listTitle);
+//		
+		String strTime = ""+mapData.get("replace");
+		System.out.println(strTime);
+//		
+//		List<String> listTitle = new ArrayList<>();
+//		listTitle.add(strTitle);
+//		listDataGroup.add(listTitle);
+
+//		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(strTime) }, "time", ColorsSWTUtils.CAT10_COLORS[0]));
 		
 		BigDecimal commit_tps = (BigDecimal) mapData.get("memfree");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(commit_tps.doubleValue()) }, "commit_tps", ColorsSWTUtils.CAT10_COLORS[0]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(commit_tps.doubleValue()) }, "commit_tps", ColorsSWTUtils.CAT10_COLORS[1]));
 
 		BigDecimal rollback_tps = (BigDecimal) mapData.get("buffers");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(rollback_tps.doubleValue()) }, "rollback_tps", ColorsSWTUtils.CAT10_COLORS[1]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(rollback_tps.doubleValue()) }, "rollback_tps", ColorsSWTUtils.CAT10_COLORS[2]));
 
 		BigDecimal cached = (BigDecimal) mapData.get("cached");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(cached.doubleValue()) }, "cached", ColorsSWTUtils.CAT10_COLORS[2]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(cached.doubleValue()) }, "cached", ColorsSWTUtils.CAT10_COLORS[3]));
 
 		BigDecimal swap = (BigDecimal) mapData.get("swap");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(swap.doubleValue()) }, "swap", ColorsSWTUtils.CAT10_COLORS[3]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(swap.doubleValue()) }, "swap", ColorsSWTUtils.CAT10_COLORS[4]));
 
 		BigDecimal dirty = (BigDecimal) mapData.get("dirty");
-		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(dirty.doubleValue()) }, "dirty", ColorsSWTUtils.CAT10_COLORS[4]));
+		listDataGroup.add(new DataGroup(new DataItem[] { new DataItem(dirty.doubleValue()) }, "dirty", ColorsSWTUtils.CAT10_COLORS[5]));
 		
 		return listDataGroup;
 	}

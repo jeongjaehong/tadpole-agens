@@ -136,13 +136,18 @@
 		</select>
 		
 		<select id="table_size" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-			SELECT e.database || '.' || e.schema || '.' || e.table, e.size/1024/1024 AS "MiB" 
-			FROM statsrepo.tables e WHERE e.snapid = $1 ORDER BY 2 DESC LIMIT 15
+			SELECT e.database || '.' || e.schema || '.' || e.table AS "Title", 
+					e.size/1024/1024 AS "MiB" 
+			FROM statsrepo.tables e WHERE e.snapid = #snapid# 
+			ORDER BY 2 DESC LIMIT 15
 		</select>
 	
 		<select id="disk_read" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
-			SELECT e.database || '.' || e.schema || '.' || e.table, statsrepo.sub(e.heap_blks_read, b.heap_blks_read) + statsrepo.sub(e.idx_blks_read, b.idx_blks_read) + statsrepo.sub(e.toast_blks_read, b.toast_blks_read) + statsrepo.sub(e.tidx_blks_read, b.tidx_blks_read) 
-			FROM statsrepo.tables e LEFT JOIN statsrepo.table b ON e.tbl = b.tbl AND e.nsp = b.nsp AND e.dbid = b.dbid AND b.snapid = $1 WHERE e.snapid = $2 ORDER BY 2 DESC limit 15
+			SELECT e.database || '.' || e.schema || '.' || e.table AS "Title", 
+				statsrepo.sub(e.heap_blks_read, b.heap_blks_read) + statsrepo.sub(e.idx_blks_read, b.idx_blks_read) + statsrepo.sub(e.toast_blks_read, b.toast_blks_read) + statsrepo.sub(e.tidx_blks_read, b.tidx_blks_read) AS "per" 
+			FROM statsrepo.tables e LEFT JOIN statsrepo.table b ON e.tbl = b.tbl AND e.nsp = b.nsp AND e.dbid = b.dbid AND b.snapid = 0 
+			WHERE e.snapid = #snapid#
+			ORDER BY 2 DESC limit 15
 		</select>
 
   <!-- SQL -->
