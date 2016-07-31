@@ -28,31 +28,6 @@ public abstract class AgensChartComposite extends AgensThreadComposite {
 	public AgensChartComposite(Composite parent, UserDBDAO userDB, Instance instance) {
 		super(parent, userDB, instance);
 	}
-	
-//	/**
-//	 * refresh UI
-//	 * @param listCPU
-//	 */
-//	public void refreshUI(final List<?> listData) {
-////		try {
-////			lineChart.setItems(getUIData());
-////		} catch (Exception e) {
-////			logger.error("update chart", e);
-////		}
-////		
-//		try {
-//			final Display display = tableView.getTable().getDisplay();
-//		    display.asyncExec( new Runnable() {
-//		    	public void run() {
-//		    		tableView.setInput(listData);
-//		    	}
-//		    } );
-//			
-//		} catch(Exception e) {
-//			logger.error("initialize data", e);
-//		}
-//	}
-	
 	/**
 	 * get UI Data
 	 * @return
@@ -60,5 +35,4 @@ public abstract class AgensChartComposite extends AgensThreadComposite {
 	 */
 	public abstract List<?> getUIData() throws Exception;
 
-	
 }

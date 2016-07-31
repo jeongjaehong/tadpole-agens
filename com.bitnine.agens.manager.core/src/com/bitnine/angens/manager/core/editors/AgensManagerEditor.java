@@ -263,41 +263,41 @@ public class AgensManagerEditor extends EditorPart {
 		final SashForm sashStatistics = new SashForm(scrolledComposite, SWT.VERTICAL);
 		sashStatistics.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
-		 CPUUsageTableComposite cpuUsageTableComposite = new
-		 CPUUsageTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		 cpuUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		
-		 LoadAverageTableComposite loadAverageTableComposite = new LoadAverageTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		 loadAverageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		
-		 IoUsageTableComposite ioUsageTableComposite = new IoUsageTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		 ioUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-
-		IoSizeTableComposite ioSizeTableComposite = new IoSizeTableComposite(sashStatistics, userDB, getInstance(),
-				new AgensMAPLabelProvider());
-		ioSizeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-
-		IoTimeTableComposite ioTimeTableComposite = new IoTimeTableComposite(sashStatistics, userDB, getInstance(),
-				new AgensMAPLabelProvider());
-		ioTimeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		CPUUsageTableComposite cpuUsageTableComposite = new
+//		CPUUsageTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		cpuUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		
+//		LoadAverageTableComposite loadAverageTableComposite = new LoadAverageTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		loadAverageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		
+//		IoUsageTableComposite ioUsageTableComposite = new IoUsageTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		ioUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//
+//		IoSizeTableComposite ioSizeTableComposite = new IoSizeTableComposite(sashStatistics, userDB, getInstance(),
+//				new AgensMAPLabelProvider());
+//		ioSizeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//
+//		IoTimeTableComposite ioTimeTableComposite = new IoTimeTableComposite(sashStatistics, userDB, getInstance(),
+//				new AgensMAPLabelProvider());
+//		ioTimeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
 		// MemoryUsageTableComposite memoryTableComposite = new MemoryUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
 		LineTransactionComposite memoryTableComposite = new LineTransactionComposite(sashStatistics, userDB, getInstance());
 		memoryTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-		 DiskUsagePerTableSpaceTableComposite diskUseageperTablespaceTableComposite = new DiskUsagePerTableSpaceTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		 diskUseageperTablespaceTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		
-		 DiskUsageperTableComposite diskUseageperTableComposite = new DiskUsageperTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		 diskUseageperTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		 
-		 // Table Size
-		 TableSizeComposite tableSizeComposite = new TableSizeComposite(sashStatistics, userDB, getInstance());
-		 tableSizeComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		 
-		 // Disk Read
-		 DiskReadComposite diskReadComposite = new DiskReadComposite(sashStatistics, userDB, getInstance());
-		 diskReadComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		DiskUsagePerTableSpaceTableComposite diskUseageperTablespaceTableComposite = new DiskUsagePerTableSpaceTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		diskUseageperTablespaceTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		
+//		DiskUsageperTableComposite diskUseageperTableComposite = new DiskUsageperTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+//		diskUseageperTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		 
+//		 // Table Size
+//		TableSizeComposite tableSizeComposite = new TableSizeComposite(sashStatistics, userDB, getInstance());
+//		tableSizeComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+//		 
+//		 // Disk Read
+//		DiskReadComposite diskReadComposite = new DiskReadComposite(sashStatistics, userDB, getInstance());
+//		diskReadComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 		// initialize scrolled composite
 		scrolledComposite.setContent(sashStatistics);
