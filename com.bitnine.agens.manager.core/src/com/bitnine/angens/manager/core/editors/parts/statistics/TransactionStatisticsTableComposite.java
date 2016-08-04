@@ -39,7 +39,7 @@ public class TransactionStatisticsTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "transaction_statistics", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "transaction_statistics", getRangeSnapId());
 	}
 	
 	/**

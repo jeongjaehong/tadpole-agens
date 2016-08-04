@@ -39,7 +39,7 @@ public class DatabaseSizeTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "database_size", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "database_size", getRangeSnapId());
 	}
 	
 	/**

@@ -39,7 +39,7 @@ public class LockConflictsComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "lock_conflicts", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "lock_conflicts", getRangeSnapId());
 	}
 	
 	/**

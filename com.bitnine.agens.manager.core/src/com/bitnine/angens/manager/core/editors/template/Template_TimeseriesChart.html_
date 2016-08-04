@@ -36,14 +36,14 @@
       
       var reportData = _TIMESERIESCHART_TEMPLATE; 
       chart.xAxis //Chart x-axis settings
-        .axisLabel('Time')
+        .axisLabel(_AXIS_LABEL_)
         .tickValues(reportData[0].values.map(function(p) { return p.x}))
         .tickFormat(function(d) {
           return d3.time.format('%Y-%m-%d %H:%M')(new Date(d))
         });
 
        chart.yAxis //Chart y-axis settings
-        .axisLabel('Consistancy')
+        .axisLabel(_YAXIS_LABEL_)
         .tickFormat(d3.format('.02f'));
 
       /* Done setting the chart up? Time to render it!*/

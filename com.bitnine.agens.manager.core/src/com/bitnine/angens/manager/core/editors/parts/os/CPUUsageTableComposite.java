@@ -39,7 +39,7 @@ public class CPUUsageTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "cpu_usage", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "cpu_usage", getRangeSnapId());
 	}
 	
 	/**

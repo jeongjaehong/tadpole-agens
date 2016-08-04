@@ -39,7 +39,7 @@ public class HeavilyUpdatedTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "heavily_updated_tables", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "heavily_updated_tables", getRangeSnapId());
 	}
 	
 	/**

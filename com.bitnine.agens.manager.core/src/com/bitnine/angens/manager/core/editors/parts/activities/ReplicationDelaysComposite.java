@@ -39,7 +39,7 @@ public class ReplicationDelaysComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "replication_delays", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "replication_delays", getRangeSnapId());
 	}
 	
 	/**

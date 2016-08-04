@@ -39,7 +39,7 @@ public class RecoveryConflictsTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "recovery_conflicts", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "recovery_conflicts", getRangeSnapId());
 	}
 	
 	/**

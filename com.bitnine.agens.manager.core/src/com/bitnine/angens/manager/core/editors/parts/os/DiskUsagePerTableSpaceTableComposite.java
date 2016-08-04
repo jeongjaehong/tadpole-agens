@@ -39,7 +39,7 @@ public class DiskUsagePerTableSpaceTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "disk_usage_per_tablespace", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "disk_usage_per_tablespace", getRangeSnapId());
 	}
 	
 	/**

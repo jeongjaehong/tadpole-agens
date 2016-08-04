@@ -39,7 +39,7 @@ public class InstanceProcessesTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "instance_processes", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "instance_processes", getRangeSnapId());
 	}
 	
 	/**

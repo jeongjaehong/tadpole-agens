@@ -39,7 +39,7 @@ public class CheckpointActivityComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "checkpoint_activity", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "checkpoint_activity", getRangeSnapId());
 	}
 	
 	/**

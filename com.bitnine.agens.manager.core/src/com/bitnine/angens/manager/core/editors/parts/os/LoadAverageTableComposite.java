@@ -39,7 +39,7 @@ public class LoadAverageTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "load_average", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "load_average", getRangeSnapId());
 	}
 	
 	/**

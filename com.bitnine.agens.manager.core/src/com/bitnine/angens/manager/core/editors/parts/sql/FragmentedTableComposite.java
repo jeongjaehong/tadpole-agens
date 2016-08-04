@@ -39,7 +39,7 @@ public class FragmentedTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "fragmented_tables", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "fragmented_tables", getRangeSnapId());
 	}
 	
 	/**

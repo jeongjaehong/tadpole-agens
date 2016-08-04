@@ -39,7 +39,7 @@ public class IoUsageTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "io_usage", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "io_usage", getRangeSnapId());
 	}
 	
 	/**

@@ -39,7 +39,7 @@ public class WALStatisticsTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "wal_statistics", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "wal_statistics", getRangeSnapId());
 	}
 	
 	/**

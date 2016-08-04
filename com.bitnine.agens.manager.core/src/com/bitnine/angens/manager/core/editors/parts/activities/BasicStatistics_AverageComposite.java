@@ -39,7 +39,7 @@ public class BasicStatistics_AverageComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "basic_statistics25", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "basic_statistics25", getRangeSnapId());
 	}
 	
 	/**

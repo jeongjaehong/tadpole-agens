@@ -39,7 +39,7 @@ public class InstanceProcessesRatioTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "instance_processes_ratio", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "instance_processes_ratio", getRangeSnapId());
 	}
 	
 	/**

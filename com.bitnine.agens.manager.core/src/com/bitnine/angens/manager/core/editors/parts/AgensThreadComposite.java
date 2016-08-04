@@ -1,6 +1,8 @@
 package com.bitnine.angens.manager.core.editors.parts;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.rap.rwt.service.ServerPushSession;
@@ -62,6 +64,17 @@ public abstract class AgensThreadComposite extends Composite {
 		return AgensManagerSQLImpl.getSnapshotInfo(userDB, instance);
 	}
 	
+	protected Map<String, Integer> getRangeSnapId() throws Exception {
+		int lastSnapID = getLastSnapId();
+		
+		Map<String, Integer> mapParameter = new HashMap<>();
+		if((lastSnapID-8) < 0) mapParameter.put("start_snapid", lastSnapID);
+		else mapParameter.put("start_snapid", (lastSnapID-8));
+		mapParameter.put("end_snapid", lastSnapID);
+		
+		return mapParameter;
+	}
+	
 	/**
 	 * start runnable
 	 * 
@@ -83,7 +96,7 @@ public abstract class AgensThreadComposite extends Composite {
 					}
 				    
 				    try {
-						Thread.sleep(AgensGraphDefine.MONITORING_CYCLE_SEC * 50);// * 1000);								
+						Thread.sleep(AgensGraphDefine.MONITORING_CYCLE_SEC * 1000);								
 					} catch(Exception e){}	
 				}	// end while
 			}	// end run

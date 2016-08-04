@@ -39,7 +39,7 @@ public class LowDensityTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "low_density_tables", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "low_density_tables", getRangeSnapId());
 	}
 	
 	/**

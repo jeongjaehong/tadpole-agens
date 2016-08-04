@@ -39,7 +39,7 @@ public class VacuumCancelsComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "vacuum_cancels", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "vacuum_cancels", getRangeSnapId());
 	}
 	
 	/**

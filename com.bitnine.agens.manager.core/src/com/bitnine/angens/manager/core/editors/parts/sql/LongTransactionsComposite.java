@@ -39,7 +39,7 @@ public class LongTransactionsComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "long_transactions", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "long_transactions", getRangeSnapId());
 	}
 	
 	/**

@@ -39,7 +39,7 @@ public class FunctionsComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "functions", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "functions", getRangeSnapId());
 	}
 	
 	/**

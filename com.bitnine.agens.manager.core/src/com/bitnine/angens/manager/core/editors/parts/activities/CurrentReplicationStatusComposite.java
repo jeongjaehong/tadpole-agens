@@ -39,7 +39,7 @@ public class CurrentReplicationStatusComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "current_replication_status", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "current_replication_status", getRangeSnapId());
 	}
 	
 	/**

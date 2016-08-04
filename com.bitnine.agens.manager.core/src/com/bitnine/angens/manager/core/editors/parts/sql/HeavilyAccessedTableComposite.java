@@ -39,7 +39,7 @@ public class HeavilyAccessedTableComposite extends AgensTableComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "heavily_accessed_tables", getLastSnapId());
+		return AgensManagerSQLImpl.getSQLMapQueryInfo(userDB, "heavily_accessed_tables", getRangeSnapId());
 	}
 	
 	/**
