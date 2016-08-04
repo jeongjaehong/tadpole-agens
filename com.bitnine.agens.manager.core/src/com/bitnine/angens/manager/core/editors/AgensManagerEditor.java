@@ -39,13 +39,6 @@ import com.bitnine.angens.manager.core.editors.parts.information.ParametersCompo
 import com.bitnine.angens.manager.core.editors.parts.information.TableComposite;
 import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.bitnine.angens.manager.core.editors.parts.lableprovider.AlertMessageLabelProvider;
-import com.bitnine.angens.manager.core.editors.parts.os.CPUUsageTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.DiskUsagePerTableSpaceTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.DiskUsageperTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.IoSizeTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.IoTimeTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.IoUsageTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.os.LoadAverageTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.sql.FragmentedTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.sql.FunctionsComposite;
 import com.bitnine.angens.manager.core.editors.parts.sql.HeavilyAccessedTableComposite;
@@ -56,12 +49,10 @@ import com.bitnine.angens.manager.core.editors.parts.sql.LowDensityTableComposit
 import com.bitnine.angens.manager.core.editors.parts.sql.StatementsComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.DatabaseSizeTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.DatabaseStatisticsTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.statistics.DiskReadComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.InstanceProcessesRatioTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.InstanceProcessesTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.statistics.LineTransactionComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.RecoveryConflictsTableComposite;
-import com.bitnine.angens.manager.core.editors.parts.statistics.TableSizeComposite;
+import com.bitnine.angens.manager.core.editors.parts.statistics.TimeseriesLineChartComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.TransactionStatisticsTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.WALStatisticsStatsTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.statistics.WALStatisticsTableComposite;
@@ -282,7 +273,7 @@ public class AgensManagerEditor extends EditorPart {
 //		ioTimeTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
 		// MemoryUsageTableComposite memoryTableComposite = new MemoryUsageTableComposite(compStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-		LineTransactionComposite memoryTableComposite = new LineTransactionComposite(sashStatistics, userDB, getInstance());
+		TimeseriesLineChartComposite memoryTableComposite = new TimeseriesLineChartComposite(sashStatistics, userDB, getInstance());
 		memoryTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 //		DiskUsagePerTableSpaceTableComposite diskUseageperTablespaceTableComposite = new DiskUsagePerTableSpaceTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());

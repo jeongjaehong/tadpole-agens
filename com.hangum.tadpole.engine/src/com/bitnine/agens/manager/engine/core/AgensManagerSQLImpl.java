@@ -70,4 +70,17 @@ public class AgensManagerSQLImpl {
 		SqlMapClient sqlClient = TadpoleSQLManager.getInstance(userDB);
 		return sqlClient.queryForList(queryName, snapid);
 	}
+
+	/**
+	 * get SQLMap query
+	 * 
+	 * @param userDB
+	 * @param queryName
+	 * @param mapParameter
+	 * @return
+	 */
+	public static List<Map> getSQLMapQueryInfo(UserDBDAO userDB, String queryName, Map<String, Integer> mapParameter) throws TadpoleSQLManagerException, SQLException {
+		SqlMapClient sqlClient = TadpoleSQLManager.getInstance(userDB);
+		return sqlClient.queryForList(queryName, mapParameter);
+	}
 }

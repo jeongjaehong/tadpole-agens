@@ -117,9 +117,10 @@
 	</select>
 
 	<!--  memory usage -->
-	<select id="memory_usage" resultClass="java.util.HashMap" parameterClass="java.lang.Integer">
+	<select id="memory_usage" resultClass="java.util.HashMap" parameterClass="java.util.HashMap">
 		SELECT replace("timestamp", '-', '/'), avg(memfree*1024*1024) AS memfree, avg(buffers*1024*1024) AS buffers, avg(cached*1024*1024) AS cached, avg(swap*1024*1024) AS swap, avg(dirty*1024*1024) AS dirty 
-		FROM statsrepo.get_memory_tendency(#snapid#, #snapid#) GROUP BY 1 ORDER BY 1
+		FROM statsrepo.get_memory_tendency(#start_snapid#, #end_snapid#) 
+		GROUP BY 1 ORDER BY 1
 	</select>
 	  
 		<!-- Disk Usage --> 
