@@ -36,7 +36,7 @@
       
       var reportData = _TIMESERIESCHART_TEMPLATE; 
       chart.xAxis //Chart x-axis settings
-        .axisLabel(_AXIS_LABEL_)
+        .axisLabel(_XAXIS_LABEL_)
         .tickValues(reportData[0].values.map(function(p) { return p.x}))
         .tickFormat(function(d) {
           return d3.time.format('%Y-%m-%d %H:%M')(new Date(d))

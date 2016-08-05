@@ -1,13 +1,10 @@
 package com.bitnine.angens.manager.core.editors.parts.statistics;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.rap.addons.chart.basic.TimeDataGroup;
 import org.eclipse.rap.addons.chart.basic.TimeDataItem2D;
@@ -16,14 +13,11 @@ import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
 import com.bitnine.angens.manager.core.editors.parts.AgensTimeseriesChartComposite;
-import com.bitnine.angens.manager.core.editors.template.AgensChartTemplate;
-import com.bitnine.angens.manager.core.utils.AgensChartUtils;
 import com.hangum.tadpole.commons.util.ColorsSWTUtils;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 

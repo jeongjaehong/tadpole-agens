@@ -96,7 +96,7 @@ public abstract class AgensThreadComposite extends Composite {
 					}
 				    
 				    try {
-						Thread.sleep(AgensGraphDefine.MONITORING_CYCLE_SEC * 1000);								
+						Thread.sleep(AgensGraphDefine.MONITORING_CYCLE_SEC * 50);// 1000);								
 					} catch(Exception e){}	
 				}	// end while
 			}	// end run

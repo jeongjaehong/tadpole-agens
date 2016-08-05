@@ -2,7 +2,6 @@ package com.bitnine.angens.manager.core.editors.parts.os;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +18,6 @@ import org.eclipse.swt.widgets.Group;
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
 import com.bitnine.angens.manager.core.editors.parts.AgensTimeseriesChartComposite;
-import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.hangum.tadpole.commons.util.ColorsSWTUtils;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
@@ -39,7 +37,7 @@ public class IoSizeTableComposite extends AgensTimeseriesChartComposite {
 	 * @param userDB
 	 * @param instance
 	 */
-	public IoSizeTableComposite(Composite parent, UserDBDAO userDB, Instance instance, AgensMAPLabelProvider labelProvider) {
+	public IoSizeTableComposite(Composite parent, UserDBDAO userDB, Instance instance) {
 		super(parent, userDB, instance);
 		setLayout(new GridLayout(1, false));
 
@@ -51,7 +49,7 @@ public class IoSizeTableComposite extends AgensTimeseriesChartComposite {
 		gd_grpTransactionStatistics.heightHint = 200;
 		gd_grpTransactionStatistics.widthHint = 200;
 		grpTransactionStatistics.setLayoutData(gd_grpTransactionStatistics);
-		grpTransactionStatistics.setText("Memory Usage");
+		grpTransactionStatistics.setText("I/O Size");
 
 		browserChart = new Browser(grpTransactionStatistics, SWT.NONE);
 		browserChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -66,34 +64,24 @@ public class IoSizeTableComposite extends AgensTimeseriesChartComposite {
 	 * @throws Exception
 	 */
 	public List<?> getUIData() throws Exception {
-		
-		// get memory data	
 		List<Map> listLine = AgensManagerSQLImpl.getSQLMapQueryInfo(getUserDB(), "io_size", getRangeSnapId());
-		if(logger.isDebugEnabled()) logger.debug("===### data size is : " + listLine.size());
 		if (listLine.isEmpty()) return new ArrayList<>();
 		
-		TimeDataItem2D[] memfree = new TimeDataItem2D[listLine.size()];
-		TimeDataItem2D[] buffers = new TimeDataItem2D[listLine.size()];
-		TimeDataItem2D[] cached = new TimeDataItem2D[listLine.size()];
-		TimeDataItem2D[] swap = new TimeDataItem2D[listLine.size()];
-		TimeDataItem2D[] dirty = new TimeDataItem2D[listLine.size()];
+		TimeDataItem2D[] read = new TimeDataItem2D[listLine.size()];
+		TimeDataItem2D[] write = new TimeDataItem2D[listLine.size()];
+		
 		for (int i=0; i<listLine.size(); i++) {
 			Map mapData = listLine.get(i);
 			
 			String strTime = String.format("new Date(\"%s\")", ""+mapData.get("replace"));
-			memfree[i] = new TimeDataItem2D(strTime, ((BigDecimal) mapData.get("memfree")).doubleValue());
-			buffers[i] 	= new TimeDataItem2D(strTime, ((BigDecimal) mapData.get("buffers")).doubleValue());
-			cached[i] 	= new TimeDataItem2D(strTime, ((BigDecimal) mapData.get("cached")).doubleValue());
-			swap[i] 	= new TimeDataItem2D(strTime, ((BigDecimal) mapData.get("swap")).doubleValue());
-			dirty[i] 	= new TimeDataItem2D(strTime, ((BigDecimal) mapData.get("dirty")).doubleValue());
+			String device_name = ""+mapData.get("device_name");
+			read[i] 	= new TimeDataItem2D(strTime, ((BigDecimal) mapData.get("read")).doubleValue(), device_name);
+			write[i] 	= new TimeDataItem2D(strTime, ((BigDecimal) mapData.get("write")).doubleValue(), device_name);
 		}
 		
 		List<TimeDataGroup> listDataGroup = new ArrayList<>();
-		listDataGroup.add(new TimeDataGroup(memfree, "memfree", ColorsSWTUtils.CAT10_COLORS[1]));
-		listDataGroup.add(new TimeDataGroup(buffers, "buffers", ColorsSWTUtils.CAT10_COLORS[2]));
-		listDataGroup.add(new TimeDataGroup(cached, "cached", 	ColorsSWTUtils.CAT10_COLORS[3]));
-		listDataGroup.add(new TimeDataGroup(swap, 	"swap", 	ColorsSWTUtils.CAT10_COLORS[4]));
-		listDataGroup.add(new TimeDataGroup(dirty, 	"dirty", 	ColorsSWTUtils.CAT10_COLORS[5]));
+		listDataGroup.add(new TimeDataGroup(read, 	read[0].getText() + " read", 	ColorsSWTUtils.CAT10_COLORS[2]));
+		listDataGroup.add(new TimeDataGroup(write, 	write[0].getText() + " write", ColorsSWTUtils.CAT10_COLORS[3]));
 		
 		return listDataGroup;
 	}
