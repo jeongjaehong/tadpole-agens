@@ -27,7 +27,13 @@ import org.eclipse.ui.part.EditorPart;
 
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
+import com.bitnine.angens.manager.core.editors.parts.activities.AnalyzeStatisticsComposite;
+import com.bitnine.angens.manager.core.editors.parts.activities.BasicStatistics_AverageComposite;
+import com.bitnine.angens.manager.core.editors.parts.activities.CheckpointActivityComposite;
+import com.bitnine.angens.manager.core.editors.parts.activities.CurrentReplicationStatusComposite;
+import com.bitnine.angens.manager.core.editors.parts.activities.IOStatistics_AverageComposite;
 import com.bitnine.angens.manager.core.editors.parts.activities.ReplicationDelaysComposite;
+import com.bitnine.angens.manager.core.editors.parts.activities.VacuumCancelsComposite;
 import com.bitnine.angens.manager.core.editors.parts.information.IndexComposite;
 import com.bitnine.angens.manager.core.editors.parts.information.ParametersComposite;
 import com.bitnine.angens.manager.core.editors.parts.information.TableComposite;
@@ -118,12 +124,12 @@ public class AgensManagerEditor extends EditorPart {
 			tabFolderMainResult = new CTabFolder(grpDashboard, SWT.NONE);
 			tabFolderMainResult.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
-//			createSummary();
-//			createStatistics();
-//			createOS();
-//			createSQL();
+			createSummary();
+			createStatistics();
+			createOS();
+			createSQL();
 			createActivities();
-//			createInformation();
+			createInformation();
 
 			tabFolderMainResult.setSelection(0);
 		}
@@ -367,24 +373,24 @@ public class AgensManagerEditor extends EditorPart {
 		final SashForm sashStatistics = new SashForm(scrolledComposite, SWT.VERTICAL);
 		sashStatistics.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
-//		// activities composite start
-//		CheckpointActivityComposite checkpointActivityComposite = new CheckpointActivityComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-//		checkpointActivityComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//
-//		BasicStatistics_AverageComposite basicStatisticsComposite = new BasicStatistics_AverageComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-//		basicStatisticsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//
-//		VacuumCancelsComposite vaccumCancelsComposite = new VacuumCancelsComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-//		vaccumCancelsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//
-//		IOStatistics_AverageComposite ioStatistcsAverageComposite = new IOStatistics_AverageComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-//		ioStatistcsAverageComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//
-//		AnalyzeStatisticsComposite analyzeStatisticsComposite = new AnalyzeStatisticsComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-//		analyzeStatisticsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-//
-//		CurrentReplicationStatusComposite currentReplicationComposite = new CurrentReplicationStatusComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
-//		currentReplicationComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		// activities composite start
+		CheckpointActivityComposite checkpointActivityComposite = new CheckpointActivityComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		checkpointActivityComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		BasicStatistics_AverageComposite basicStatisticsComposite = new BasicStatistics_AverageComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		basicStatisticsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		VacuumCancelsComposite vaccumCancelsComposite = new VacuumCancelsComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		vaccumCancelsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		IOStatistics_AverageComposite ioStatistcsAverageComposite = new IOStatistics_AverageComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		ioStatistcsAverageComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		AnalyzeStatisticsComposite analyzeStatisticsComposite = new AnalyzeStatisticsComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		analyzeStatisticsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		CurrentReplicationStatusComposite currentReplicationComposite = new CurrentReplicationStatusComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
+		currentReplicationComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
 		ReplicationDelaysComposite replicationDelaysComposite = new ReplicationDelaysComposite(sashStatistics, userDB, getInstance());
 		replicationDelaysComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
