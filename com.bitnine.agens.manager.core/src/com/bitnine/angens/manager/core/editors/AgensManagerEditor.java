@@ -39,6 +39,7 @@ import com.bitnine.angens.manager.core.editors.parts.information.ParametersCompo
 import com.bitnine.angens.manager.core.editors.parts.information.TableComposite;
 import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.bitnine.angens.manager.core.editors.parts.lableprovider.AlertMessageLabelProvider;
+import com.bitnine.angens.manager.core.editors.parts.logs.LogComposite;
 import com.bitnine.angens.manager.core.editors.parts.os.CPUUsageTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.os.DiskUsagePerTableSpaceTableComposite;
 import com.bitnine.angens.manager.core.editors.parts.os.DiskUsageperTableComposite;
@@ -130,6 +131,7 @@ public class AgensManagerEditor extends EditorPart {
 			createSQL();
 			createActivities();
 			createInformation();
+			createLog();
 
 			tabFolderMainResult.setSelection(0);
 		}
@@ -443,6 +445,25 @@ public class AgensManagerEditor extends EditorPart {
 				scrolledComposite.setMinSize(compositeBody.computeSize(r.width, SWT.DEFAULT));
 			}
 		});
+	}
+	
+	/**
+	 * create log composite
+	 * 
+	 */
+	private void createLog() {
+		CTabItem tbtmStatistics = new CTabItem(tabFolderMainResult, SWT.NONE);
+		tbtmStatistics.setText("Log Viewer");
+		
+		final Composite compositeBody = new Composite(tabFolderMainResult, SWT.NONE);
+		compositeBody.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		compositeBody.setLayout(new GridLayout(1, false));
+		tbtmStatistics.setControl(compositeBody);
+
+		// log composite
+		LogComposite logComposite = new LogComposite(compositeBody, userDB, getInstance());
+		logComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
 	}
 
 	@Override

@@ -314,9 +314,27 @@
 		SELECT count(*) FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3
 	</select>
 
+<!-- 아래 쿼리는 사용하지 않습니다.  프로그램에서 바로 호출해서 사용합니다. -->
 	<select id="log" resultClass="java.util.HashMap" parameterClass="java.util.HashMap">
-		SELECT to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS.MS') AS timestamp, username, database, pid, client_addr, session_id, session_line_num, ps_display, to_char(session_start, 'YYYY-MM-DD HH24:MI:SS.MS') AS session_start, vxid, xid, elevel, sqlstate, message, detail, hint, query, query_pos, context, user_query, user_query_pos, location, application_name 
-		FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3
+		SELECT to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS.MS') AS timestamp, 
+			username, database, pid, client_addr, session_id, session_line_num, ps_display, 
+			to_char(session_start, 'YYYY-MM-DD HH24:MI:SS.MS') AS session_start, vxid, xid, 
+			elevel, sqlstate, message, detail, hint, query, query_pos, context, user_query, user_query_pos, location, application_name 
+		FROM statsrepo.log 
+		WHERE instid = #snapid# 
+		<isNotEmpty property="_LEVEL">   
+			AND  elevel = #_LEVEL#
+		</isNotEmpty>
+		<isNotEmpty property="_USERNAME">   
+			AND  username = #_USERNAME#
+		</isNotEmpty>
+		<isNotEmpty property="_DATABASE">   
+			AND  database = #_DATABASE#
+		</isNotEmpty>
+		<isNotEmpty property="_MESSAGE">   
+			AND  message = #_MESSAGE#
+		</isNotEmpty>
+			<!-- AND timestamp BETWEEN $2 AND $3 -->
 	</select>
 	 
 </sqlMap>
