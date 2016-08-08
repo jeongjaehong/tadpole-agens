@@ -51,7 +51,7 @@ public class InstanceProcessesTableComposite extends AgensTimeseriesChartComposi
 		browserChart = new Browser(grpTransactionStatistics, SWT.NONE);
 		browserChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		initializeUIData();
+		initializeUIData("'Timestamp'", "'%H:%M'", "'Percent(%)'", "d3.format('.02f')");
 	}
 	
 	/**

@@ -52,7 +52,7 @@ public class DatabaseSizeTableComposite extends AgensTimeseriesChartComposite {
 		browserChart = new Browser(grpTransactionStatistics, SWT.NONE);
 		browserChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		initializeUIData();
+		initializeUIData("'Timestamp'", "'%H:%M'", "'Database Size (MB)'", "d3.format('.02f')");
 	}
 	
 	/**

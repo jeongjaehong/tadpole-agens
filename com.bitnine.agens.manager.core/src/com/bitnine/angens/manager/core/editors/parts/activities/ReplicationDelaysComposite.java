@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Group;
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
 import com.bitnine.angens.manager.core.editors.parts.AgensTimeseriesChartComposite;
-import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.hangum.tadpole.commons.util.ColorsSWTUtils;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
@@ -52,7 +51,7 @@ public class ReplicationDelaysComposite extends AgensTimeseriesChartComposite {
 		browserChart = new Browser(grpTransactionStatistics, SWT.NONE);
 		browserChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		initializeUIData();
+		initializeUIData("'Timestamp'", "'%H:%M'", "'Delaying amount(MB)'", "d3.format('.02f')");
 	}
 	
 	/**

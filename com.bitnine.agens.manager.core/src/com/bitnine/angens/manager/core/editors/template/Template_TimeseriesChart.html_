@@ -1,3 +1,7 @@
+<!-- 
+	// basic source 
+	http://jsfiddle.net/LukaszWiktor/rcL0uot9/ 
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,12 +43,12 @@
         .axisLabel(_XAXIS_LABEL_)
         .tickValues(reportData[0].values.map(function(p) { return p.x}))
         .tickFormat(function(d) {
-          return d3.time.format('%Y-%m-%d %H:%M')(new Date(d))
+          return d3.time.format(_FORMAT_XAXIS_LABEL)(new Date(d))
         });
 
        chart.yAxis //Chart y-axis settings
         .axisLabel(_YAXIS_LABEL_)
-        .tickFormat(d3.format('.02f'));
+        .tickFormat(_FORMAT_YAXIS_LABEL);
 
       /* Done setting the chart up? Time to render it!*/
       d3.select('#chart svg') //Select the <svg> element you want to render the chart in.   

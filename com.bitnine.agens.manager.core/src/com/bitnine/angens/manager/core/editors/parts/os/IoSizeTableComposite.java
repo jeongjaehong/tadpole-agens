@@ -52,7 +52,7 @@ public class IoSizeTableComposite extends AgensTimeseriesChartComposite {
 		browserChart = new Browser(grpTransactionStatistics, SWT.NONE);
 		browserChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		initializeUIData();
+		initializeUIData("'Timestamp'", "'%Y-%m-%d %H:%M'", "'Data Size(Byte)'", "d3.format('.02f')");
 	}
 	
 	/**
