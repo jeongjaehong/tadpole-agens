@@ -199,9 +199,10 @@ public class AgensManagerEditor extends EditorPart {
 		scrolledComposite.setExpandVertical(true);
 		tbtmStatistics.setControl(scrolledComposite);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(scrolledComposite);
-
-		final SashForm sashStatistics = new SashForm(scrolledComposite, SWT.VERTICAL);
+		
+		final Composite sashStatistics = new Composite(scrolledComposite, SWT.NONE);
 		sashStatistics.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		sashStatistics.setLayout(new GridLayout(1, false));
 
 		// database statistics table
 		DatabaseStatisticsTableComposite databaseComposite = new DatabaseStatisticsTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
@@ -238,13 +239,13 @@ public class AgensManagerEditor extends EditorPart {
 
 		// initialize scrolled composite
 		scrolledComposite.setContent(sashStatistics);
-		scrolledComposite.setMinSize(sashStatistics.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComposite.addControlListener(new ControlAdapter() {
 			public void controlResized(ControlEvent e) {
-				Rectangle r = scrolledComposite.getClientArea();
+				Rectangle r = sashStatistics.getClientArea();
 				scrolledComposite.setMinSize(sashStatistics.computeSize(r.width, SWT.DEFAULT));
 			}
 		});
+		
 	}
 
 	/**
@@ -260,8 +261,9 @@ public class AgensManagerEditor extends EditorPart {
 		tbtmStatistics.setControl(scrolledComposite);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(scrolledComposite);
 
-		final SashForm sashStatistics = new SashForm(scrolledComposite, SWT.VERTICAL);
+		final Composite sashStatistics = new Composite(scrolledComposite, SWT.NONE);
 		sashStatistics.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		sashStatistics.setLayout(new GridLayout(1, false));
 
 		CPUUsageTableComposite cpuUsageTableComposite = new CPUUsageTableComposite(sashStatistics, userDB, getInstance());
 		cpuUsageTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -297,10 +299,9 @@ public class AgensManagerEditor extends EditorPart {
 		
 		// initialize scrolled composite
 		scrolledComposite.setContent(sashStatistics);
-		scrolledComposite.setMinSize(sashStatistics.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComposite.addControlListener(new ControlAdapter() {
 			public void controlResized(ControlEvent e) {
-				Rectangle r = scrolledComposite.getClientArea();
+				Rectangle r = sashStatistics.getClientArea();
 				scrolledComposite.setMinSize(sashStatistics.computeSize(r.width, SWT.DEFAULT));
 			}
 		});
@@ -319,8 +320,9 @@ public class AgensManagerEditor extends EditorPart {
 		tbtmStatistics.setControl(scrolledComposite);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(scrolledComposite);
 
-		final SashForm sashStatistics = new SashForm(scrolledComposite, SWT.VERTICAL);
+		final Composite sashStatistics = new Composite(scrolledComposite, SWT.NONE);
 		sashStatistics.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		sashStatistics.setLayout(new GridLayout(1, false));
 
 		HeavilyUpdatedTableComposite heavilyUpdatedTableComposite = new HeavilyUpdatedTableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
 		heavilyUpdatedTableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -348,10 +350,9 @@ public class AgensManagerEditor extends EditorPart {
 		
 		// initialize scrolled composite
 		scrolledComposite.setContent(sashStatistics);
-		scrolledComposite.setMinSize(sashStatistics.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComposite.addControlListener(new ControlAdapter() {
 			public void controlResized(ControlEvent e) {
-				Rectangle r = scrolledComposite.getClientArea();
+				Rectangle r = sashStatistics.getClientArea();
 				scrolledComposite.setMinSize(sashStatistics.computeSize(r.width, SWT.DEFAULT));
 			}
 		});
@@ -370,8 +371,9 @@ public class AgensManagerEditor extends EditorPart {
 		tbtmStatistics.setControl(scrolledComposite);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(scrolledComposite);
 
-		final SashForm sashStatistics = new SashForm(scrolledComposite, SWT.VERTICAL);
+		final Composite sashStatistics = new Composite(scrolledComposite, SWT.NONE);
 		sashStatistics.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		sashStatistics.setLayout(new GridLayout(1, false));
 
 		// activities composite start
 		CheckpointActivityComposite checkpointActivityComposite = new CheckpointActivityComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
@@ -397,10 +399,9 @@ public class AgensManagerEditor extends EditorPart {
 		
 		// initialize scrolled composite
 		scrolledComposite.setContent(sashStatistics);
-		scrolledComposite.setMinSize(sashStatistics.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComposite.addControlListener(new ControlAdapter() {
 			public void controlResized(ControlEvent e) {
-				Rectangle r = scrolledComposite.getClientArea();
+				Rectangle r = sashStatistics.getClientArea();
 				scrolledComposite.setMinSize(sashStatistics.computeSize(r.width, SWT.DEFAULT));
 			}
 		});
@@ -420,8 +421,9 @@ public class AgensManagerEditor extends EditorPart {
 		tbtmStatistics.setControl(scrolledComposite);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(scrolledComposite);
 
-		final SashForm sashStatistics = new SashForm(scrolledComposite, SWT.VERTICAL);
+		final Composite sashStatistics = new Composite(scrolledComposite, SWT.NONE);
 		sashStatistics.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		sashStatistics.setLayout(new GridLayout(1, false));
 
 		// information composite
 		TableComposite tableComposite = new TableComposite(sashStatistics, userDB, getInstance(), new AgensMAPLabelProvider());
@@ -435,10 +437,9 @@ public class AgensManagerEditor extends EditorPart {
 		
 		// initialize scrolled composite
 		scrolledComposite.setContent(sashStatistics);
-		scrolledComposite.setMinSize(sashStatistics.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		scrolledComposite.addControlListener(new ControlAdapter() {
 			public void controlResized(ControlEvent e) {
-				Rectangle r = scrolledComposite.getClientArea();
+				Rectangle r = sashStatistics.getClientArea();
 				scrolledComposite.setMinSize(sashStatistics.computeSize(r.width, SWT.DEFAULT));
 			}
 		});

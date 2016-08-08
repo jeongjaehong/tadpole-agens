@@ -1,9 +1,12 @@
 package com.bitnine.angens.manager.core.actions;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionListener;
@@ -13,6 +16,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
+import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
+import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
 import com.bitnine.angens.manager.core.Activator;
 import com.bitnine.angens.manager.core.editors.AgensManagerEditor;
 import com.bitnine.angens.manager.core.editors.AgensManagerEditorInput;
@@ -50,8 +55,16 @@ public class AgensManagerOpenAction extends Action implements ISelectionListener
 	
 	@Override
 	public void run() {
-		AgensManagerEditorInput mei = new AgensManagerEditorInput(userDB);
+		try {
+			List<Instance> listInstance = AgensManagerSQLImpl.getInstanceInfo(userDB);
+		} catch (Exception e) {
+			logger.error("get instance", e);
+			MessageDialog.openError(null, "Error", "모니터링 정보가 발견되지 않았습니다. 확인하여 주십시오.");
+			
+			return;
+		}
 		
+		AgensManagerEditorInput mei = new AgensManagerEditorInput(userDB);
 		try {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(mei, AgensManagerEditor.ID);
 		} catch (PartInitException e) {

@@ -43,10 +43,8 @@ public class CPUUsageTableComposite extends AgensTimeseriesChartComposite {
 		Group grpTransactionStatistics = new Group(this, SWT.NONE);
 		grpTransactionStatistics.setLayout(new GridLayout(1, false));
 		GridData gd_grpTransactionStatistics = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-		gd_grpTransactionStatistics.minimumHeight = 200;
-		gd_grpTransactionStatistics.minimumWidth = 200;
-		gd_grpTransactionStatistics.heightHint = 200;
-		gd_grpTransactionStatistics.widthHint = 200;
+		gd_grpTransactionStatistics.minimumHeight = 350;
+		gd_grpTransactionStatistics.heightHint = 350;
 		grpTransactionStatistics.setLayoutData(gd_grpTransactionStatistics);
 		grpTransactionStatistics.setText("CPU Usage");
 

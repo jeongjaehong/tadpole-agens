@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Group;
 import com.bitnine.agens.manager.engine.core.AgensManagerSQLImpl;
 import com.bitnine.agens.manager.engine.core.dao.domain.Instance;
 import com.bitnine.angens.manager.core.editors.parts.AgensTimeseriesChartComposite;
-import com.bitnine.angens.manager.core.editors.parts.lableprovider.AgensMAPLabelProvider;
 import com.hangum.tadpole.commons.util.ColorsSWTUtils;
 import com.hangum.tadpole.engine.query.dao.system.UserDBDAO;
 
@@ -44,10 +43,8 @@ public class WALStatisticsTableComposite extends AgensTimeseriesChartComposite {
 		Group grpTransactionStatistics = new Group(this, SWT.NONE);
 		grpTransactionStatistics.setLayout(new GridLayout(1, false));
 		GridData gd_grpTransactionStatistics = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-		gd_grpTransactionStatistics.minimumHeight = 200;
-		gd_grpTransactionStatistics.minimumWidth = 200;
-		gd_grpTransactionStatistics.heightHint = 200;
-		gd_grpTransactionStatistics.widthHint = 200;
+		gd_grpTransactionStatistics.minimumHeight = 350;
+		gd_grpTransactionStatistics.heightHint = 350;
 		grpTransactionStatistics.setLayoutData(gd_grpTransactionStatistics);
 		grpTransactionStatistics.setText("WAL Statistics stats");
 
