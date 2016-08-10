@@ -439,8 +439,8 @@ public class ResultSetComposite extends Composite {
 			return false;
 		}
 		
-		// 파라미터 쿼리이라면 파라미터 쿼리 상태로 만듭니다.
-		if(!ifIsParameterQuery(reqQuery)) return false;
+//		// 파라미터 쿼리이라면 파라미터 쿼리 상태로 만듭니다.
+//		if(!ifIsParameterQuery(reqQuery)) return false;
 		
 		// 프로그래스 상태와 쿼리 상태를 초기화한다.
 		controlProgress(true);

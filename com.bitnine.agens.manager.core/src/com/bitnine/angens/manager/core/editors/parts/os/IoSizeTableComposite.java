@@ -44,17 +44,15 @@ public class IoSizeTableComposite extends AgensTimeseriesChartComposite {
 		Group grpTransactionStatistics = new Group(this, SWT.NONE);
 		grpTransactionStatistics.setLayout(new GridLayout(1, false));
 		GridData gd_grpTransactionStatistics = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-		gd_grpTransactionStatistics.minimumHeight = 200;
-		gd_grpTransactionStatistics.minimumWidth = 200;
-		gd_grpTransactionStatistics.heightHint = 200;
-		gd_grpTransactionStatistics.widthHint = 200;
+		gd_grpTransactionStatistics.minimumHeight = 350;
+		gd_grpTransactionStatistics.heightHint = 350;
 		grpTransactionStatistics.setLayoutData(gd_grpTransactionStatistics);
 		grpTransactionStatistics.setText("I/O Size");
 
 		browserChart = new Browser(grpTransactionStatistics, SWT.NONE);
 		browserChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		initializeUIData();
+		initializeUIData("'Timestamp'", "'%Y-%m-%d %H:%M'", "'Data Size(Byte)'", "d3.format('.02f')");
 	}
 	
 	/**

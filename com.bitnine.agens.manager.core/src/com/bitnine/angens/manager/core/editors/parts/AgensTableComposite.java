@@ -36,10 +36,12 @@ public abstract class AgensTableComposite extends AgensThreadComposite {
 		
 		Group grpComp = new Group(this, SWT.NONE);
 		grpComp.setLayout(new GridLayout(1, false));
-		grpComp.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+
+		// scrollable composite vertical true
+		grpComp.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		grpComp.setText(title);
 		
-		tableView = new TableViewer(grpComp, SWT.NONE);
+		tableView = new TableViewer(grpComp, SWT.BORDER | SWT.FULL_SELECTION);
 		Table table = tableView.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
@@ -47,8 +49,6 @@ public abstract class AgensTableComposite extends AgensThreadComposite {
 		GridLayout gl_grpConnectionInfo = new GridLayout(1, false);
 		gl_grpConnectionInfo.verticalSpacing = 0;
 		gl_grpConnectionInfo.horizontalSpacing = 0;
-		gl_grpConnectionInfo.marginHeight = 200;
-		gl_grpConnectionInfo.marginWidth = 0;
 		table.setLayout(gl_grpConnectionInfo);
 		
 		createTableColumn();
@@ -59,14 +59,6 @@ public abstract class AgensTableComposite extends AgensThreadComposite {
 			AgensMAPLabelProvider mapLabelProvider = (AgensMAPLabelProvider)labelProvider;
 			mapLabelProvider.setTable(tableView.getTable());
 		}
-		
-		try {
-			refreshUI(getUIData());
-		} catch(Exception e) {
-			logger.error("refresh UI", e);
-		}
-		
-		startInstanceMon();
 	}
 	
 	/**

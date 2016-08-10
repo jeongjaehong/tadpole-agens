@@ -95,8 +95,9 @@ public abstract class AgensThreadComposite extends Composite {
 					    }
 					}
 				    
+					// 5분에 한번씩 ( 모니터링 주기 데이터가 10분에 한번씩 뫃아집니다 )  
 				    try {
-						Thread.sleep(AgensGraphDefine.MONITORING_CYCLE_SEC * 1000);								
+						Thread.sleep(AgensGraphDefine.MONITORING_CYCLE_SEC * 5000);								
 					} catch(Exception e){}	
 				}	// end while
 			}	// end run
